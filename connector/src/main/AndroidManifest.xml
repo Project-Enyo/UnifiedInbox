@@ -1,0 +1,41 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries>
+        <intent>
+            <action android:name="com.github.projectenyo.unifiedinbox.host.REGISTER" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="unifiedinbox" android:host="link" />
+        </intent>
+    </queries>
+    <application>
+        <receiver
+            android:name="com.github.projectenyo.unifiedinbox.internal.ConnectorReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.github.projectenyo.unifiedinbox.connector.REGISTERED" />
+                <action android:name="com.github.projectenyo.unifiedinbox.connector.REGISTRATION_FAILED" />
+                <action android:name="com.github.projectenyo.unifiedinbox.connector.UNREGISTERED" />
+                <action android:name="com.github.projectenyo.unifiedinbox.connector.REPLY" />
+                <action android:name="com.github.projectenyo.unifiedinbox.connector.MARK_READ" />
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name="com.github.projectenyo.unifiedinbox.internal.OpenActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="com.github.projectenyo.unifiedinbox.connector.OPEN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.github.projectenyo.unifiedinbox.internal.LinkActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    </application>
+</manifest>
