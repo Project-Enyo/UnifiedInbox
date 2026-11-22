@@ -1,5 +1,7 @@
 # UnifiedInbox
 
+[![JitPack](https://jitpack.io/v/Project-Enyo/UnifiedInbox.svg)](https://jitpack.io/#Project-Enyo/UnifiedInbox)
+
 UnifiedInbox is UnifiedPush for chats. Chat apps share their conversations with one inbox app the
 person chooses, and the inbox can reply, mark chats read and open them through the app that owns
 them. There is no server: apps talk through a few Android intents described in [SPEC.md](SPEC.md).
