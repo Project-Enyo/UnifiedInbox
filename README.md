@@ -25,7 +25,7 @@ dependencyResolutionManagement {
 
 // app/build.gradle.kts
 dependencies {
-    implementation("com.github.Project-Enyo.UnifiedInbox:connector:1.0.0")
+    implementation("com.github.Project-Enyo:UnifiedInbox:1.0.0")
 }
 ```
 

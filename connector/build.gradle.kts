@@ -18,8 +18,8 @@ android {
 publishing {
     publications {
         register<MavenPublication>("release") {
-            groupId = "com.github.Project-Enyo.UnifiedInbox"
-            artifactId = "connector"
+            groupId = "com.github.Project-Enyo"
+            artifactId = "UnifiedInbox"
             version = providers.gradleProperty("libraryVersion").getOrElse("1.0.0")
             afterEvaluate { from(components["release"]) }
         }
