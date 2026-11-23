@@ -18,8 +18,16 @@
                 <action android:name="com.github.projectenyo.unifiedinbox.connector.UNREGISTERED" />
                 <action android:name="com.github.projectenyo.unifiedinbox.connector.REPLY" />
                 <action android:name="com.github.projectenyo.unifiedinbox.connector.MARK_READ" />
+                <action android:name="com.github.projectenyo.unifiedinbox.connector.REACT" />
+                <action android:name="com.github.projectenyo.unifiedinbox.connector.FETCH_IMAGE" />
+                <action android:name="com.github.projectenyo.unifiedinbox.connector.FETCH_FILE" />
             </intent-filter>
         </receiver>
+        <provider
+            android:name="com.github.projectenyo.unifiedinbox.internal.InboxFileProvider"
+            android:authorities="${applicationId}.unifiedinbox.files"
+            android:exported="false"
+            android:grantUriPermissions="true" />
         <activity
             android:name="com.github.projectenyo.unifiedinbox.internal.OpenActivity"
             android:exported="true"

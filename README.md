@@ -27,7 +27,7 @@ dependencyResolutionManagement {
 
 // app/build.gradle.kts
 dependencies {
-    implementation("com.github.Project-Enyo:UnifiedInbox:1.0.0")
+    implementation("com.github.Project-Enyo:UnifiedInbox:1.1.0")
 }
 ```
 
@@ -62,11 +62,30 @@ Share what happens in the app:
 
 ```kotlin
 UnifiedInbox.send(context,
-    InboxEvent.Conversation("c1", title = null, members = listOf(InboxMember("u7", "Ada")), shortcut = "chat:c1"),
-    InboxEvent.Message("c1", id = "m42", text = "See you at six", time = sentAt, sender = "u7", senderName = "Ada")
+    InboxEvent.Conversation("c1", title = null, members = listOf(InboxMember("u7", "Ada", avatar = ada.pictureId)), shortcut = "chat:c1"),
+    InboxEvent.Message("c1", id = "m42", text = "See you at six", markdown = "See you at **six**", time = sentAt, sender = "u7", senderName = "Ada")
 )
 UnifiedInbox.send(context, InboxEvent.Read("c1", readUpTo))
 ```
+
+Messages can carry everything a chat app shows: `attachments` (photos, videos, GIFs, stickers, voice
+messages, audio and files), link `previews`, `music`, a `location` that may be live, view `once`
+messages and `system` notices. `InboxEvent.Reaction`, `Edit`, `Delete` and `LocationUpdate` change
+earlier messages.
+
+Pictures, thumbnails and preview images are named by image ids that change when the image does; files
+are fetched when the person opens them. The host asks, and the library scales, encodes and shares what
+your handler returns:
+
+```kotlin
+// Announce Protocol.FEATURE_IMAGES and Protocol.FEATURE_FILES when registering.
+override fun image(context: Context, id: String): Bitmap? = loadImage(id)
+override fun file(context: Context, conversation: String, message: String, attachment: String): InboxFile? =
+    decryptAttachment(conversation, message, attachment)?.let { InboxFile(it, mime, name) }
+```
+
+The host can also react (`FEATURE_REACT`, `onReact`) and send replies that quote a message, files or a
+place (`FEATURE_REPLY_TO`, `FEATURE_SEND_ATTACHMENTS`, `FEATURE_SEND_LOCATION`, `onSend`).
 
 A host sees every message the app shares. By default the library only accepts the Enyo launcher and
 apps installed in a `priv-app` directory of the system image as hosts; set `UnifiedInbox.isTrusted`
